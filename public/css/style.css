@@ -1,0 +1,480 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 30px;
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 32px;
+}
+
+.main-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.nav-btn {
+    flex: 1;
+    min-width: 120px;
+    padding: 15px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    border: 2px solid #3498db;
+    background-color: white;
+    color: #3498db;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.nav-btn:hover {
+    background-color: #3498db;
+    color: white;
+}
+
+.nav-btn.active {
+    background-color: #3498db;
+    color: white;
+}
+
+.section {
+    display: none;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.section.active {
+    display: block;
+}
+
+.section h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.form-large {
+    max-width: 800px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #2c3e50;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.dropdown-with-add {
+    display: flex;
+    gap: 10px;
+}
+
+.dropdown-with-add select {
+    flex: 1;
+}
+
+.dropdown-with-add button {
+    padding: 15px 25px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.dropdown-with-add button:hover {
+    background-color: #229954;
+}
+
+.btn-primary {
+    padding: 20px 40px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+}
+
+.btn-add {
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.btn-add:hover {
+    background-color: #229954;
+}
+
+.btn-danger {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+.btn-success {
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-success:hover {
+    background-color: #229954;
+}
+
+.product-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr auto;
+    gap: 10px;
+    align-items: end;
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    transition: opacity 0.3s ease;
+}
+
+.product-row select,
+.product-row input {
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+}
+
+.availability-message {
+    font-weight: 500;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.barcode-scanner {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+.barcode-scanner input {
+    flex: 1;
+    padding: 12px;
+    font-size: 18px;
+    border: 2px solid #3498db;
+    border-radius: 8px;
+}
+
+.barcode-scanner input:focus {
+    outline: none;
+    border-color: #2980b9;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+.booking-summary {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.booking-summary h3 {
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.total-amount {
+    font-size: 24px;
+    text-align: right;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 2px solid #2c3e50;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 5px solid #3498db;
+}
+
+.card h3 {
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    border-left: 5px solid #ffc107;
+    color: #856404;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    border-left: 5px solid #dc3545;
+    color: #721c24;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border-left: 5px solid #28a745;
+    color: #155724;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.table th,
+.table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.table th {
+    background-color: #2c3e50;
+    color: white;
+    font-size: 18px;
+}
+
+.table tr:hover {
+    background-color: #f8f9fa;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 35px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #000;
+}
+
+.booking-details {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.booking-details h3 {
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+.booking-details p {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.items-list {
+    margin-top: 20px;
+}
+
+.item-card {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 2px solid #ddd;
+}
+
+.item-card h4 {
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+.item-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.item-actions button {
+    flex: 1;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.revenue-summary {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.revenue-summary h3 {
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+.revenue-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-size: 18px;
+}
+
+.revenue-total {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: right;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 2px solid #2c3e50;
+    color: #27ae60;
+}
+
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .product-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .nav-btn {
+        min-width: 100%;
+    }
+}

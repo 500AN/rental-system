@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rental Management System</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Rental Management System</h1>
+        </header>
+
+        <nav class="main-nav">
+            <button class="nav-btn active" onclick="showSection('dashboard', event)">Dashboard</button>
+            <button class="nav-btn" onclick="showSection('booking', event)">New Booking</button>
+            <button class="nav-btn" onclick="showSection('pickup', event)">Pickup</button>
+            <button class="nav-btn" onclick="showSection('return', event)">Return</button>
+            <button class="nav-btn" onclick="showSection('sale', event)">Sale</button>
+            <button class="nav-btn" onclick="showSection('products', event)">Products</button>
+            <button class="nav-btn" onclick="showSection('washing', event)">Washing</button>
+            <button class="nav-btn" onclick="showSection('damage', event)">Damage</button>
+            <button class="nav-btn" onclick="showSection('revenue', event)">Revenue</button>
+        </nav>
+
+        <main id="main-content">
+            <section id="dashboard" class="section active">
+                <h2>Dashboard</h2>
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <h3>Due Today</h3>
+                        <div id="due-today-list"></div>
+                    </div>
+                    <div class="card">
+                        <h3>Washing Alerts</h3>
+                        <div id="washing-alerts"></div>
+                    </div>
+                    <div class="card">
+                        <h3>Today's Revenue</h3>
+                        <div id="today-revenue"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="booking" class="section">
+                <h2>New Booking</h2>
+                <form id="booking-form" class="form-large">
+                    <div class="form-group">
+                        <label>Booking Number (Auto-generated)</label>
+                        <input type="text" id="booking-number" readonly style="background-color: #f0f0f0; cursor: not-allowed;">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Customer</label>
+                        <div class="dropdown-with-add">
+                            <select id="customer-select" required>
+                                <option value="">Select Customer</option>
+                            </select>
+                            <button type="button" onclick="showAddCustomer()">+ Add New</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Employee</label>
+                        <div class="dropdown-with-add">
+                            <select id="employee-select" required>
+                                <option value="">Select Employee</option>
+                            </select>
+                            <button type="button" onclick="showAddEmployee()">+ Add New</button>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Start Date</label>
+                            <input type="date" id="rental-start-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label>End Date</label>
+                            <input type="date" id="rental-end-date" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Products</label>
+                        <div class="barcode-scanner">
+                            <input type="text" id="barcode-input" placeholder="Scan or enter barcode..." autocomplete="off">
+                            <button type="button" onclick="searchByBarcode()" class="btn-add">Search</button>
+                        </div>
+                        <button type="button" onclick="addProductRow()" class="btn-add">+ Add Product Manually</button>
+                        <div id="products-list"></div>
+                    </div>
+
+                    <div class="booking-summary">
+                        <h3>Booking Summary</h3>
+                        <div id="booking-items-summary"></div>
+                        <div class="total-amount">
+                            <strong>Total Amount: ₹<span id="total-amount">0.00</span></strong>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Advance Amount</label>
+                        <input type="number" id="advance-amount" step="0.01" min="0" value="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Payment Method</label>
+                        <select id="advance-payment-method">
+                            <option value="">Select Method</option>
+                            <option value="Cash">Cash</option>
+                            <option value="Card">Card</option>
+                            <option value="UPI">UPI</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Save Booking</button>
+                </form>
+            </section>
+
+            <section id="pickup" class="section">
+                <h2>Pickup / Start Rental</h2>
+
+                <div id="pickup-due-today-section">
+                    <h3 style="color: #e74c3c; margin-bottom: 15px;">
+                        <span style="background: #e74c3c; color: white; padding: 5px 12px; border-radius: 5px; margin-right: 10px;">Due Today</span>
+                        Bookings Ready for Pickup
+                    </h3>
+                    <div id="pickup-due-today-list"></div>
+                </div>
+
+                <div style="margin-top: 30px; padding-top: 30px; border-top: 2px solid #ddd;">
+                    <h3 style="margin-bottom: 15px;">Other Bookings</h3>
+                    <div class="form-group">
+                        <label>Select Booking</label>
+                        <select id="pickup-booking-select" onchange="loadPickupDetails()">
+                            <option value="">Select Booking</option>
+                        </select>
+                    </div>
+                    <div id="pickup-details"></div>
+                </div>
+            </section>
+
+            <section id="return" class="section">
+                <h2>Return Items</h2>
+
+                <div id="return-due-today-section">
+                    <h3 style="color: #4caf50; margin-bottom: 15px;">
+                        <span style="background: #4caf50; color: white; padding: 5px 12px; border-radius: 5px; margin-right: 10px;">Due Today</span>
+                        Returns Expected Today
+                    </h3>
+                    <div id="return-due-today-list"></div>
+                </div>
+
+                <div style="margin-top: 30px; padding-top: 30px; border-top: 2px solid #ddd;">
+                    <h3 style="margin-bottom: 15px;">Other Returns</h3>
+                    <div class="form-large">
+                        <div class="form-group">
+                            <label>Select Booking</label>
+                            <select id="return-booking-select" onchange="loadReturnDetails()">
+                                <option value="">Select Booking</option>
+                            </select>
+                        </div>
+                        <div id="return-details"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sale" class="section">
+                <h2>Sale</h2>
+                <form id="sale-form" class="form-large">
+                    <div class="form-group">
+                        <label>Product</label>
+                        <select id="sale-product-select" onchange="updateSalePrice()" required>
+                            <option value="">Select Product</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Quantity</label>
+                        <input type="number" id="sale-quantity" min="1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Sale Price (per unit)</label>
+                        <input type="number" id="sale-price" step="0.01" min="0" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Total Amount</label>
+                        <input type="number" id="sale-total" step="0.01" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Customer (Optional)</label>
+                        <select id="sale-customer-select">
+                            <option value="">Select Customer</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Employee</label>
+                        <select id="sale-employee-select" required>
+                            <option value="">Select Employee</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Complete Sale</button>
+                </form>
+            </section>
+
+            <section id="products" class="section">
+                <h2>Products</h2>
+                <button onclick="showAddProduct()" class="btn-add">+ Add New Product</button>
+                <div id="products-table"></div>
+            </section>
+
+            <section id="washing" class="section">
+                <h2>Washing Management</h2>
+                <div id="washing-list"></div>
+            </section>
+
+            <section id="damage" class="section">
+                <h2>Damage Management</h2>
+                <div id="damage-list"></div>
+            </section>
+
+            <section id="revenue" class="section">
+                <h2>Revenue Reports</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Report Type</label>
+                        <select id="revenue-type" onchange="loadRevenue()">
+                            <option value="daily">Daily</option>
+                            <option value="monthly">Monthly</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" id="revenue-date" onchange="loadRevenue()">
+                    </div>
+                </div>
+                <div id="revenue-report"></div>
+            </section>
+        </main>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">×</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
